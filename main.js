@@ -16,9 +16,12 @@ const shareToggleBtn = document.getElementById('share-toggle');
 const shareMenu = document.getElementById('share-menu');
 const closeShareBtn = document.getElementById('close-share');
 const copyLinkBtn = document.getElementById('copy-link');
-const shareLinkedinBtn = document.getElementById('share-linkedin');
+const shareLinkedinBtn = null; // Removed
 const shareWhatsappBtn = document.getElementById('share-whatsapp');
 const toastEl = document.getElementById('toast');
+
+// Shared SharePoint URL
+const SHARE_BASE_URL = 'https://mytnb.sharepoint.com/sites/GencoConference2026/SitePages/Hybrid-Presenter.aspx';
 
 // State Initialization
 presenterEl.textContent = presenterName;
@@ -81,8 +84,8 @@ function showToast(message) {
 }
 
 function copyToClipboard() {
-    const shareUrl = window.location.href;
-    navigator.clipboard.writeText(shareUrl).then(() => {
+    const fullUrl = `${SHARE_BASE_URL}?presenter=${encodeURIComponent(presenterName)}&session=${encodeURIComponent(sessionTitle)}`;
+    navigator.clipboard.writeText(fullUrl).then(() => {
         showToast('Link copied to clipboard!');
         shareMenu.classList.add('hidden');
     });
@@ -90,16 +93,15 @@ function copyToClipboard() {
 
 function shareOnPlatform(platform) {
     const text = `Check out this presentation by ${presenterName} at GCON2026: `;
-    const url = encodeURIComponent(window.location.href);
+    const fullUrl = `${SHARE_BASE_URL}?presenter=${encodeURIComponent(presenterName)}&session=${encodeURIComponent(sessionTitle)}`;
+    const url = encodeURIComponent(fullUrl);
     
     let shareUrl = '';
-    if (platform === 'linkedin') {
-        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-    } else if (platform === 'whatsapp') {
+    if (platform === 'whatsapp') {
         shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}${url}`;
     }
     
-    window.open(shareUrl, '_blank');
+    if (shareUrl) window.open(shareUrl, '_blank');
 }
 
 // --- Event Listeners ---
@@ -117,7 +119,6 @@ closeShareBtn.addEventListener('click', (e) => {
 
 copyLinkBtn.addEventListener('click', copyToClipboard);
 
-shareLinkedinBtn.addEventListener('click', () => shareOnPlatform('linkedin'));
 shareWhatsappBtn.addEventListener('click', () => shareOnPlatform('whatsapp'));
 
 // Close share menu when clicking outside
