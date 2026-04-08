@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Like & Share | GCON2026</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="widget-container">
+        <div class="glass-card">
+            <div class="card-content">
+                <div class="info-section">
+                    <h1 id="presenter-name">Loading...</h1>
+                    <p id="session-title">Hybrid Presentation</p>
+                </div>
+                
+                <div class="actions-section">
+                    <button id="like-btn" class="action-btn like-btn" aria-label="Like this session">
+                        <i data-lucide="heart" class="icon-heart"></i>
+                        <span id="like-count" class="count">1.4k</span>
+                    </button>
+                    
+                    <button id="share-toggle" class="action-btn share-btn" aria-label="Share this session">
+                        <i data-lucide="share-2"></i>
+                        <span>Share</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Share Menu (Hidden by default) -->
+            <div id="share-menu" class="share-menu hidden">
+                <div class="share-menu-header">
+                    <span>Spread the word</span>
+                    <button id="close-share" class="close-btn"><i data-lucide="x"></i></button>
+                </div>
+                <div class="share-options">
+                    <button class="share-opt" id="copy-link">
+                        <i data-lucide="copy"></i>
+                        <span>Copy Link</span>
+                    </button>
+                    <button class="share-opt" id="share-linkedin">
+                        <i data-lucide="linkedin"></i>
+                        <span>LinkedIn</span>
+                    </button>
+                    <button class="share-opt" id="share-whatsapp">
+                        <i data-lucide="message-circle"></i>
+                        <span>WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Toast Notification -->
+        <div id="toast" class="toast hidden">Link copied to clipboard!</div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

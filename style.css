@@ -1,0 +1,245 @@
+:root {
+    --primary: #fb7185; /* Rose 400 */
+    --primary-hover: #f43f5e; /* Rose 500 */
+    --secondary: #6366f1; /* Indigo 500 */
+    --secondary-hover: #4f46e5; /* Indigo 600 */
+    --accent: #22d3ee; /* Cyan 400 */
+    --bg-overlay: rgba(15, 23, 42, 0.7); /* slate-900 with opacity */
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #f8fafc; /* slate-50 */
+    --text-muted: #94a3b8; /* slate-400 */
+    --transition-fast: 0.2s ease;
+    --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: transparent; /* Allows transparency in iframe */
+    color: var(--text-main);
+    overflow: hidden; /* Embed widget shouldn't scroll body */
+}
+
+.widget-container {
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.glass-card {
+    background: var(--bg-overlay);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-section h1 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.025em;
+    margin-bottom: 2px;
+}
+
+.info-section p {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.actions-section {
+    display: flex;
+    gap: 12px;
+}
+
+.action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all var(--transition-fast);
+    outline: none;
+}
+
+/* Like Button Styles */
+.like-btn {
+    background: rgba(251, 113, 133, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(251, 113, 133, 0.2);
+}
+
+.like-btn:hover {
+    background: rgba(251, 113, 133, 0.2);
+    transform: translateY(-1px);
+}
+
+.like-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+    box-shadow: 0 4px 15px -3px rgba(251, 113, 133, 0.4);
+}
+
+.icon-heart {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.like-btn.active .icon-heart {
+    fill: currentColor;
+    transform: scale(1.2);
+    animation: heart-pulse 0.4s ease-out;
+}
+
+/* Share Button Styles */
+.share-btn {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--secondary);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.share-btn:hover {
+    background: rgba(99, 102, 241, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Share Menu Styles */
+.share-menu {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    background: #1e293b;
+    border-top: 1px solid var(--glass-border);
+    transition: bottom var(--transition-slow);
+    z-index: 10;
+    padding: 20px;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.share-menu:not(.hidden) {
+    bottom: 0;
+}
+
+.share-menu.hidden {
+    display: block; /* We handle visibility via positioning */
+    bottom: -100%;
+}
+
+.share-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    padding: 4px;
+}
+
+.share-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.share-opt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--text-main);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.share-opt:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.share-opt i {
+    color: var(--accent);
+}
+
+/* Toast Notification Styles */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background: #0f172a;
+    border: 1px solid var(--accent);
+    color: var(--text-main);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 100;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Animations */
+@keyframes heart-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1.2); }
+}
+
+/* Utility */
+.hidden {
+    display: none;
+}
+
+/* Small adjustments for tight iframe spaces */
+@media (max-width: 320px) {
+    .glass-card {
+        padding: 16px;
+    }
+    .actions-section {
+        flex-direction: column;
+    }
+}
